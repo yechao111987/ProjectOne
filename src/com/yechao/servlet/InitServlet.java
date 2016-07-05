@@ -20,7 +20,7 @@ public class InitServlet extends HttpServlet {
 		Properties properties=new Properties();
 		try {
 			properties.load(inputStream);
-			String typeString=properties.getProperty("com.greenline.start.type");
+			String typeString=properties.getProperty("com.yechao.start.type");
 			DaoStart.getInstance().setTypeString(typeString);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
