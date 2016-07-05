@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<customers>
+    <customer id="1001">
+        <name>yc</name>
+        <address>hangzhou</address>
+        <phone>15021489183</phone>
+    </customer>
+    
+</customers>
