@@ -27,6 +27,7 @@ public class InitServlet extends HttpServlet {
 			e.printStackTrace();
 			log("ddddd");
 			log("错误", e);
+			//飞机离开的风景老师的课件发
 		}
 		
 	}
