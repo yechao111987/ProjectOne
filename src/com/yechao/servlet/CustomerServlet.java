@@ -129,58 +129,69 @@ public class CustomerServlet extends HttpServlet {
 	
 	private void login(HttpServletRequest request,HttpServletResponse response) {
 		System.out.println("login");
-		String usernameString=request.getParameter("username");
-		//若可以获取到请求参数username,则打出欢迎信息。
-		if (usernameString != null && usernameString.trim().equals("yechao")){
-		
-			//把登陆信息存储在cookies中，并设置cookie时间
-			Cookie cookie=new Cookie("username",usernameString);
-			cookie.setMaxAge(3000);
-			//cookie.setPath("/");
-			response.addCookie(cookie);	
-			try {
-				request.getRequestDispatcher("index.jsp").forward(request, response);
-			} catch (ServletException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}else {
-			//从cookies中获取用户信息，若存在，则显示欢迎信息
-			Cookie [] cookies=request.getCookies();
-			if(cookies !=null &&cookies.length>0){
-				for(Cookie cookie:cookies){
-					String cookienameString=cookie.getName();
-					if("username".equals(cookienameString)){
-						String cookievalueString=cookie.getValue();
-						request.setAttribute("username", cookievalueString);
-						try {
-							request.getRequestDispatcher("index.jsp").forward(request, response);
-						} catch (ServletException | IOException e) {
-							// TODO Auto-generated catch block
-							e.printStackTrace();
-						}
-						
-					}
-			}
-				try {
-					response.sendRedirect("Login.jsp");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			else {
-				try {
-					response.sendRedirect("Login.jsp");
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
+		try {
+			request.getRequestDispatcher("index.jsp").forward(request, response);
+		} catch (ServletException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			log("错误",e);
 		}
+
+//		String usernameString=request.getParameter("username");
+//		//若可以获取到请求参数username,则打出欢迎信息。
+//		if (usernameString != null && usernameString.trim().equals("yechao")){
+//		
+//			//把登陆信息存储在cookies中，并设置cookie时间
+//			Cookie cookie=new Cookie("username",usernameString);
+//			cookie.setMaxAge(3000);
+//			//cookie.setPath("/");
+//			response.addCookie(cookie);	
+//			try {
+//				request.getRequestDispatcher("index.jsp").forward(request, response);
+//			} catch (ServletException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
+//		}else {
+//			//从cookies中获取用户信息，若存在，则显示欢迎信息
+//			Cookie [] cookies=request.getCookies();
+//			if(cookies !=null &&cookies.length>0){
+//				for(Cookie cookie:cookies){
+//					String cookienameString=cookie.getName();
+//					if("username".equals(cookienameString)){
+//						String cookievalueString=cookie.getValue();
+//						request.setAttribute("username", cookievalueString);
+//						try {
+//							request.getRequestDispatcher("index.jsp").forward(request, response);
+//						} catch (ServletException | IOException e) {
+//							// TODO Auto-generated catch block
+//							e.printStackTrace();
+//						}
+//						
+//					}
+//			}
+//				try {
+//					response.sendRedirect("Login.jsp");
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//			else {
+//				try {
+//					response.sendRedirect("Login.jsp");
+//				} catch (IOException e) {
+//					// TODO Auto-generated catch block
+//					e.printStackTrace();
+//				}
+//			}
+//		}
 		
 	}
 

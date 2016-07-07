@@ -23,5 +23,13 @@
     <servlet-class>com.yechao.servlet.InitServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
+  <filter>
+      <filter-name>Loginfilter</filter-name>
+      <filter-class>com.yechao.filter.Loginfilter</filter-class>
+  </filter>
+  <filter-mapping>
+    <filter-name>Loginfilter</filter-name>
+    <url-pattern>/login.do</url-pattern>
+  </filter-mapping>
 
 </web-app>

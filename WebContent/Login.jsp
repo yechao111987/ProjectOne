@@ -10,6 +10,7 @@
 <h1>Login Page</h1>
 <form id="login" method="post" action="login.do">
 	Name:<input type="text" name="username">
+	Passwd:<input type="text" name="passwd">
 	<input type="submit" value="Login">
 </form>
 
