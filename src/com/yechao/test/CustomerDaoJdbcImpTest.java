@@ -4,21 +4,24 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
-import org.apache.jasper.tagplugins.jstl.core.Out;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import com.yecaho.daoStart.DaoStart;
 import com.yechao.dao.Critalfactor;
 import com.yechao.dao.CustomerDao;
 import com.yechao.dao.imp.CustomerDaoJdbcImp;
 import com.yechao.module.Customer;
 
 public class CustomerDaoJdbcImpTest {
-	private CustomerDao customerDao = new CustomerDaoJdbcImp();
-
+	//private CustomerDao customerDao = new CustomerDaoJdbcImp();
+	private CustomerDao customerDao;
 	@Before
 	public void setUp() throws Exception {
+		customerDao = DaoStart.getInstance().getCustomerDao();
+
 	}
 
 	@After
@@ -44,9 +47,10 @@ public class CustomerDaoJdbcImpTest {
 	}
 
 	@Test
+	@Ignore
 	public void testGetCustomer() {
 		Customer customer = new Customer();
-		customer = customerDao.getCustomer(2);
+		customer = customerDao.getCustomer(5);
 		System.out.print(customer);
 		// fail("Not yet implemented");
 	}

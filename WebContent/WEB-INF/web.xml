@@ -9,6 +9,9 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  <listener>
+  <listener-class>com.yechao.listener.CustomerServletContextListener</listener-class>
+  </listener>
   <servlet>
     <servlet-name>CustomerServlet</servlet-name>
     <servlet-class>com.yechao.servlet.CustomerServlet</servlet-class>
@@ -18,18 +21,19 @@
     <servlet-name>CustomerServlet</servlet-name>
     <url-pattern>*.do</url-pattern>
   </servlet-mapping>
-   <servlet>
+  <servlet>
     <servlet-name>InitServlet</servlet-name>
     <servlet-class>com.yechao.servlet.InitServlet</servlet-class>
     <load-on-startup>1</load-on-startup>
   </servlet>
   <filter>
-      <filter-name>Loginfilter</filter-name>
-      <filter-class>com.yechao.filter.Loginfilter</filter-class>
+    <filter-name>Loginfilter</filter-name>
+    <filter-class>com.yechao.filter.Loginfilter</filter-class>
   </filter>
   <filter-mapping>
     <filter-name>Loginfilter</filter-name>
     <url-pattern>/login.do</url-pattern>
   </filter-mapping>
 
+  
 </web-app>

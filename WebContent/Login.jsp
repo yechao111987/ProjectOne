@@ -13,6 +13,8 @@
 	Passwd:<input type="text" name="passwd">
 	<input type="submit" value="Login">
 </form>
+<h1><%=request.getAttribute("info") %></h1>
+
 
 <%
 //1.创建一个cookies对象

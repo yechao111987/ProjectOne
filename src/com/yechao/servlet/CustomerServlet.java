@@ -129,16 +129,27 @@ public class CustomerServlet extends HttpServlet {
 	
 	private void login(HttpServletRequest request,HttpServletResponse response) {
 		System.out.println("login");
+		log("调用login方法");
+		log("写入cookie");
+		String nameString=request.getParameter("username");
+		String passwdString=request.getParameter("passwd");
+		String loginString=passwdString+nameString;
+		Cookie cookie=new Cookie("login", loginString);
+		cookie.setMaxAge(100);
+		//cookie.setPath("/");
+		response.addCookie(cookie);
 		try {
 			request.getRequestDispatcher("index.jsp").forward(request, response);
+
 		} catch (ServletException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			log("错误",e);
+			log("找不到index.jsp",e);
 		}
+		
 
 //		String usernameString=request.getParameter("username");
 //		//若可以获取到请求参数username,则打出欢迎信息。
@@ -204,6 +215,9 @@ public class CustomerServlet extends HttpServlet {
 				String cookienameString=cookie.getName();
 				if("username".equals(cookienameString)){
 					String cookievalueString=cookie.getValue();
+					//log("cookie有问题",cookievalueString);
+					log("cookievalueString");
+					System.out.println(cookievalueString);
 					//request.setAttribute("username", cookievalueString);
 					try {
 						request.getRequestDispatcher("index.jsp").forward(request, response);

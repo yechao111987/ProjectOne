@@ -8,6 +8,8 @@ import javax.servlet.FilterConfig;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import com.yechao.dao.UserDao;
 import com.yechao.dao.imp.CustomerDaoJdbcImp;
@@ -29,12 +31,18 @@ public class Loginfilter implements Filter {
 		// TODO Auto-generated method stub
 		System.out.println("dofilter");
 		String nameString=arg0.getParameter("username");
-		String passwdStringS=arg0.getParameter("passwd");
+		String passwdString=arg0.getParameter("passwd");
 		System.out.println(nameString);
-		if(userDao.login(nameString, passwdStringS)){
+		if(userDao.login(nameString, passwdString)){
 			arg2.doFilter(arg0, arg1);
+			System.out.println("用户名和密码正确");
 		}else {
+			System.out.println("用户名或者密码不正确");
+			HttpServletResponse response=(HttpServletResponse) arg1;
+			HttpServletRequest request=(HttpServletRequest) arg0;
+			request.setAttribute("info", "用户名或者密码不正确");
 			arg0.getRequestDispatcher("/Login.jsp").forward(arg0, arg1);
+			
 		}
 			
 //		if (!nameString.equals("yechao") || nameString.isEmpty()) {
