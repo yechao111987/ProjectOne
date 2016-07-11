@@ -25,7 +25,7 @@ public class InitServlet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//log("´íÎó", e);
+			log("´íÎó", e);
 		}
 		
 	}
