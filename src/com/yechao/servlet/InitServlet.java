@@ -25,9 +25,7 @@ public class InitServlet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			//log("ddddd");
 			//log("错误", e);
-			//飞机离开的风景老师的课件发
 		}
 		
 	}
