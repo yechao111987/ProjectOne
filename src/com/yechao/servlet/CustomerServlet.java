@@ -13,13 +13,16 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.eclipse.jdt.internal.compiler.ast.ThisReference;
+import org.omg.CORBA.PRIVATE_MEMBER;
 
 import com.sun.org.apache.xpath.internal.operations.And;
 import com.yecaho.daoStart.DaoStart;
 import com.yechao.dao.Critalfactor;
 import com.yechao.dao.CustomerDao;
+import com.yechao.dao.UserDao;
 import com.yechao.dao.imp.CustomerDaoJdbcImp;
 import com.yechao.dao.imp.CustomerDaoXMLImp;
+import com.yechao.dao.imp.UserDaoJdbcImp;
 import com.yechao.module.Customer;
 
 public class CustomerServlet extends HttpServlet {
@@ -29,6 +32,8 @@ public class CustomerServlet extends HttpServlet {
 	//private CustomerDao customerDao= new CustomerDaoJdbcImp();
 	//private CustomerDao customerDao=new CustomerDaoXMLImp();
 	private CustomerDao customerDao=DaoStart.getInstance().getCustomerDao();
+	private UserDao userDao=new UserDaoJdbcImp();
+	private CustomerDao customerDao2=new CustomerDaoJdbcImp();
 
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -44,6 +49,7 @@ public class CustomerServlet extends HttpServlet {
 		log(servletPath);
 		String methodname=servletPath.substring(1, servletPath.length()-3);
 		log(methodname);
+		System.out.println(servletPath);
 		log("通过java反射机制获取运行时方法和对象。");
 		try {
 			Method method=getClass().getDeclaredMethod(methodname, 
@@ -59,61 +65,49 @@ public class CustomerServlet extends HttpServlet {
 	
 	private void login(HttpServletRequest request,HttpServletResponse response) {
 		log("调用login方法");
+		long aa=customerDao2.getCountByName("yechao");
+		System.out.println(aa);
 		log("写入cookie");
 		String nameString=request.getParameter("username");
 		String passwdString=request.getParameter("passwd");
-		String loginString=passwdString+nameString;
-		Cookie cookie=new Cookie("login", loginString);
-		cookie.setMaxAge(100);
-		//cookie.setPath("/");//设置cookie作用域
-		response.addCookie(cookie);
-		try {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-			log("找不到index.jsp",e);
-		}		
+		if (userDao.login(nameString, passwdString)) {
+			try {
+				request.getRequestDispatcher("index.jsp").forward(request, response);
+			} catch (ServletException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}else {
+			try {
+				response.sendRedirect("Login.jsp");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+		
+	
 	}
 
 	
 	private void query(HttpServletRequest request, HttpServletResponse response) {
 		log("query");
-		Cookie [] cookies=request.getCookies();
-		if(cookies !=null &&cookies.length>0){
-			for(Cookie cookie:cookies){
-				String cookienameString=cookie.getName();
-				if("login".equals(cookienameString)){
-					String cookievalueString=cookie.getValue();
-					log("cookie的值:"+cookievalueString);
-					if (cookievalueString=="yechaoyechao") {
-						String name=request.getParameter("name");
-						String address=request.getParameter("address");
-						String phone=request.getParameter("phone");
-						Critalfactor cc=new Critalfactor(name, address, phone);
-						//1.使用customerDao的getAll（）方法获取Customer的集合
-						List<Customer> customers=customerDao.getSearch(cc);
-						//2.吧Customer的集合放入request中
-						request.setAttribute("Customers", customers);
+		String name=request.getParameter("name");
+		String address=request.getParameter("address");
+		String phone=request.getParameter("phone");
+		Critalfactor cc=new Critalfactor(name, address, phone);
+		//1.使用customerDao的getAll（）方法获取Customer的集合
+		List<Customer> customers=customerDao.getSearch(cc);
+		//2.吧Customer的集合放入request中
+		request.setAttribute("Customers", customers);
 						//3.转发页面到indexs.jsp
-						try {
-							request.getRequestDispatcher("/index.jsp").forward(request, response);
-						} catch (ServletException e) {
-							e.printStackTrace();
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-						}	
-					}
-				}}else {
-					try {
-						response.sendRedirect("Login.jsp");
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
+		try {
+		request.getRequestDispatcher("index.jsp").forward(request, response);
+		} catch (ServletException e) {
+		e.printStackTrace();
+		} catch (IOException e) {
+		e.printStackTrace();
+		}
 	}
 
 	private void delete(HttpServletRequest request, HttpServletResponse response) {

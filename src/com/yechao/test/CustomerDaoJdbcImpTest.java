@@ -16,11 +16,15 @@ import com.yechao.dao.imp.CustomerDaoJdbcImp;
 import com.yechao.module.Customer;
 
 public class CustomerDaoJdbcImpTest {
-	//private CustomerDao customerDao = new CustomerDaoJdbcImp();
-	private CustomerDao customerDao;
+	
+	//private CustomerDao customerDao;
+	private CustomerDao customerDao=new CustomerDaoJdbcImp(); 
+
+	private CustomerDao customerDao1=new CustomerDaoJdbcImp(); 
 	@Before
 	public void setUp() throws Exception {
-		customerDao = DaoStart.getInstance().getCustomerDao();
+		//customerDao = DaoStart.getInstance().getCustomerDao();
+		System.out.println("setup Before");
 
 	}
 
@@ -31,7 +35,7 @@ public class CustomerDaoJdbcImpTest {
 	@Test
 	public void testGetAll() {
 		// String mysql="select id,name,address,phone from customers";
-		List<Customer> customers = customerDao.getAll();
+		List<Customer> customers = customerDao1.getAll();
 		System.out.print(customers);
 		// fail("Not yet implemented");
 	}
