@@ -31,16 +31,7 @@ public class CustomerDaoXMLImp implements CustomerDao {
 	}
 
 	@Override
-	public Customer getCustomer(Integer id) {
-		// TODO Auto-generated method stub
-		System.out.println("getCustomer");
-
-		return null;
-	}
-
-	@Override
 	public void delete(Integer id) {
-		// TODO Auto-generated method stub
 		System.out.println("delete");
 
 
@@ -48,15 +39,12 @@ public class CustomerDaoXMLImp implements CustomerDao {
 
 	@Override
 	public Customer get(Integer id) {
-		// TODO Auto-generated method stub
 		System.out.println("get");
-
 		return null;
 	}
 
 	@Override
 	public void updateById(Integer id, Critalfactor cc) {
-		// TODO Auto-generated method stub
 		System.out.println("updateById");
 
 

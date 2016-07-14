@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
 
-import com.sun.org.apache.xpath.internal.operations.And;
 import com.yecaho.daoStart.DaoStart;
 import com.yechao.dao.Critalfactor;
 import com.yechao.dao.CustomerDao;
+import com.yechao.dao.imp.CustomerDaoJDBCImpl;
 import com.yechao.dao.imp.CustomerDaoJdbcImp;
 import com.yechao.dao.imp.CustomerDaoXMLImp;
 import com.yechao.module.Customer;
@@ -26,9 +25,10 @@ public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
 	//使用了多态
-	//private CustomerDao customerDao= new CustomerDaoJdbcImp();
+	//private CustomerDao customerDao= new CustomerDaoJdbcImpl();
 	//private CustomerDao customerDao=new CustomerDaoXMLImp();
-	private CustomerDao customerDao=DaoStart.getInstance().getCustomerDao();
+	//private CustomerDao customerDao=DaoStart.getInstance().getCustomerDao();
+	private CustomerDao customerDao=new CustomerDaoJDBCImpl();
 
 
 	/**
@@ -40,171 +40,48 @@ public class CustomerServlet extends HttpServlet {
 		
 	}
 
-	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
-	 */
-//	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		// TODO Auto-generated method stub
-//		String method=request.getParameter("method");
-//		//System.out.print(method);
-//
-//		switch (method) {
-//		case "add":add(request,response);break;
-//		case "delete":delete(request,response);break;
-//		case "query":query(request,response);break;
-//		}
-//		
-//	}
-
-
 	//@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		//super.doPost(req, resp);
 		String servletPath=req.getServletPath();
-		//System.out.println(servletPath);
-		//String methodname=servletPath.substring(1);
 		String methodname=servletPath.substring(1, servletPath.length()-3);
-		//System.out.println(methodname);
-//		try {
-//			//获取运行类的的类名称 1
-//			//Class<?> classType=Class.forName("java.lang.String");
-//			//获取允运行类的类名称   2
-//			Class<?> classType=Customer.class;
-//			
-//			//新建类的对象
-//			Object customer1=classType.newInstance();
-//			System.out.println("customer1:"+customer1);
-//			//获取方法
-//			Method[] stringMethods=classType.getMethods();
-//			Method stringMethods1=classType.getMethod("setAddress1",new Class[]{String.class});
-//			System.out.println("stringMethods1:"+stringMethods1);
-//			//使用方法
-//			Object resultObject=stringMethods1.invoke(customer1, new Object[]{("我的地址")});
-//			System.out.println("resultObject:"+resultObject);
-//			System.out.println((String)resultObject);
-//
-//			
-//			for (Method stringMethod : stringMethods) {
-//				System.out.println(stringMethod);
-//				//method.invoke(req, resp);
-//			}
-//			//System.out.println(stringMethod);
-//		} catch (Exception e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//
-//		Method[] methods=getClass().getDeclaredMethods();
 		try {
-			//Method methods1=getClass().getMethod(methodname, new Class[]
-			//		{HttpServletRequest.class,HttpServletResponse.class});
 			Method method=getClass().getDeclaredMethod(methodname, 
 							HttpServletRequest.class,HttpServletResponse.class);
 			System.out.println("获取method方法："+method);
 			method.invoke(this, req,resp);
-
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 			System.out.println("No such Method");
 			resp.sendRedirect("/ProjectOne/error.jsp");
-		}
-
-//		for (Method method : methods) {
-//			System.out.println(method);
-//			//method.invoke(req, resp);
-//		}		
-		//Method method=getClass().getDeclaredMethod(methodname, HttpServletRequest.class)
-		//Method method= getClass().getDeclaredMethods(methodname,HttpServletRequest.class,
-		//		HttpServletRequest.class);
-		//method.invoke(this, req,resp);
-		//method[0].invoke(this, HttpServlet);
-		
-
-		
+		}	
 	}
 	
 	
-	private void login(HttpServletRequest request,HttpServletResponse response) {
-		System.out.println("login");
-		log("调用login方法");
-		log("写入cookie");
-		String nameString=request.getParameter("username");
-		String passwdString=request.getParameter("passwd");
-		String loginString=passwdString+nameString;
-		Cookie cookie=new Cookie("login", loginString);
-		cookie.setMaxAge(100);
-		//cookie.setPath("/");
-		response.addCookie(cookie);
-		try {
-			request.getRequestDispatcher("index.jsp").forward(request, response);
-
-		} catch (ServletException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			log("找不到index.jsp",e);
-		}
-		
-
-//		String usernameString=request.getParameter("username");
-//		//若可以获取到请求参数username,则打出欢迎信息。
-//		if (usernameString != null && usernameString.trim().equals("yechao")){
-//		
-//			//把登陆信息存储在cookies中，并设置cookie时间
-//			Cookie cookie=new Cookie("username",usernameString);
-//			cookie.setMaxAge(3000);
-//			//cookie.setPath("/");
-//			response.addCookie(cookie);	
-//			try {
-//				request.getRequestDispatcher("index.jsp").forward(request, response);
-//			} catch (ServletException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}else {
-//			//从cookies中获取用户信息，若存在，则显示欢迎信息
-//			Cookie [] cookies=request.getCookies();
-//			if(cookies !=null &&cookies.length>0){
-//				for(Cookie cookie:cookies){
-//					String cookienameString=cookie.getName();
-//					if("username".equals(cookienameString)){
-//						String cookievalueString=cookie.getValue();
-//						request.setAttribute("username", cookievalueString);
-//						try {
-//							request.getRequestDispatcher("index.jsp").forward(request, response);
-//						} catch (ServletException | IOException e) {
-//							// TODO Auto-generated catch block
-//							e.printStackTrace();
-//						}
-//						
-//					}
-//			}
-//				try {
-//					response.sendRedirect("Login.jsp");
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
-//			else {
-//				try {
-//					response.sendRedirect("Login.jsp");
-//				} catch (IOException e) {
-//					// TODO Auto-generated catch block
-//					e.printStackTrace();
-//				}
-//			}
+//	private void login(HttpServletRequest request,HttpServletResponse response) {
+//		System.out.println("login");
+//		log("调用login方法");
+//		log("写入cookie");
+//		String nameString=request.getParameter("username");
+//		String passwdString=request.getParameter("passwd");
+//		String loginString=passwdString+nameString;
+//		Cookie cookie=new Cookie("login", loginString);
+//		cookie.setMaxAge(100);
+//		//cookie.setPath("/");
+//		response.addCookie(cookie);
+//		try {
+//			request.getRequestDispatcher("index.jsp").forward(request, response);
+//
+//		} catch (ServletException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//			log("找不到index.jsp",e);
 //		}
-		
-	}
+//	}
 
 	
 	private void query(HttpServletRequest request, HttpServletResponse response) {

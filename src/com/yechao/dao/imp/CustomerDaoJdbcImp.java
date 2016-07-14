@@ -11,7 +11,6 @@ public class CustomerDaoJdbcImp extends Dao<Customer> implements CustomerDao {
 
 	@Override
 	public List<Customer> getAll() {
-		// TODO Auto-generated method stub
 		String mysql = "select id,name,address,phone from customers";
 		return getForList(mysql);
 	}
@@ -23,13 +22,6 @@ public class CustomerDaoJdbcImp extends Dao<Customer> implements CustomerDao {
 		update(mysql, customer.getName(), customer.getAddress(),
 				customer.getPhone());
 
-	}
-
-	// 该方法用get替代了
-	@Override
-	public Customer getCustomer(Integer id) {
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -62,7 +54,8 @@ public class CustomerDaoJdbcImp extends Dao<Customer> implements CustomerDao {
 		// TODO Auto-generated method stub
 		String mysql="select id,name,address,phone from customers where name like ? and address like ? "
 				+ "and phone like ?";
-		return getForList(mysql, cc.getNameString(),cc.getAddressString(),cc.getPhoneString());
+		return getForList(mysql, cc.getNameString(),
+				cc.getAddressString(),cc.getPhoneString());
 	}
 
 	@Override
