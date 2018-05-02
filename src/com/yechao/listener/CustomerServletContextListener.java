@@ -5,7 +5,7 @@ import javax.servlet.ServletContextListener;
 import javax.servlet.ServletRequestEvent;
 import javax.servlet.ServletRequestListener;
 import javax.servlet.http.HttpSessionEvent;
-import javax.servlet.http.HttpSessionIdListener;
+import javax.servlet.http.*;
 public class CustomerServletContextListener implements ServletContextListener,ServletRequestListener,HttpSessionIdListener{
 
 	@Override

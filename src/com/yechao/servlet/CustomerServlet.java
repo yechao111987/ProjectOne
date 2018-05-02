@@ -12,9 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.eclipse.jdt.internal.compiler.ast.ThisReference;
-
-import com.sun.org.apache.xpath.internal.operations.And;
 import com.yecaho.daoStart.DaoStart;
 import com.yechao.dao.Critalfactor;
 import com.yechao.dao.CustomerDao;
@@ -25,7 +22,7 @@ import com.yechao.module.Customer;
 public class CustomerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	
-	//Ê¹ÓÃÁË¶àÌ¬
+	//Ê¹ï¿½ï¿½ï¿½Ë¶ï¿½Ì¬
 	//private CustomerDao customerDao= new CustomerDaoJdbcImp();
 	//private CustomerDao customerDao=new CustomerDaoXMLImp();
 	private CustomerDao customerDao=DaoStart.getInstance().getCustomerDao();
@@ -68,20 +65,20 @@ public class CustomerServlet extends HttpServlet {
 		String methodname=servletPath.substring(1, servletPath.length()-3);
 		//System.out.println(methodname);
 //		try {
-//			//»ñÈ¡ÔËÐÐÀàµÄµÄÀàÃû³Æ 1
+//			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Äµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 1
 //			//Class<?> classType=Class.forName("java.lang.String");
-//			//»ñÈ¡ÔÊÔËÐÐÀàµÄÀàÃû³Æ   2
+//			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½   2
 //			Class<?> classType=Customer.class;
 //			
-//			//ÐÂ½¨ÀàµÄ¶ÔÏó
+//			//ï¿½Â½ï¿½ï¿½ï¿½Ä¶ï¿½ï¿½ï¿½
 //			Object customer1=classType.newInstance();
 //			System.out.println("customer1:"+customer1);
-//			//»ñÈ¡·½·¨
+//			//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½
 //			Method[] stringMethods=classType.getMethods();
 //			Method stringMethods1=classType.getMethod("setAddress1",new Class[]{String.class});
 //			System.out.println("stringMethods1:"+stringMethods1);
-//			//Ê¹ÓÃ·½·¨
-//			Object resultObject=stringMethods1.invoke(customer1, new Object[]{("ÎÒµÄµØÖ·")});
+//			//Ê¹ï¿½Ã·ï¿½ï¿½ï¿½
+//			Object resultObject=stringMethods1.invoke(customer1, new Object[]{("ï¿½ÒµÄµï¿½Ö·")});
 //			System.out.println("resultObject:"+resultObject);
 //			System.out.println((String)resultObject);
 //
@@ -102,7 +99,7 @@ public class CustomerServlet extends HttpServlet {
 			//		{HttpServletRequest.class,HttpServletResponse.class});
 			Method method=getClass().getDeclaredMethod(methodname, 
 							HttpServletRequest.class,HttpServletResponse.class);
-			System.out.println("»ñÈ¡method·½·¨£º"+method);
+			System.out.println("ï¿½ï¿½È¡methodï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"+method);
 			method.invoke(this, req,resp);
 
 		} catch (Exception e) {
@@ -129,8 +126,8 @@ public class CustomerServlet extends HttpServlet {
 	
 	private void login(HttpServletRequest request,HttpServletResponse response) {
 		System.out.println("login");
-		log("µ÷ÓÃlogin·½·¨");
-		log("Ð´Èëcookie");
+		log("ï¿½ï¿½ï¿½ï¿½loginï¿½ï¿½ï¿½ï¿½");
+		log("Ð´ï¿½ï¿½cookie");
 		String nameString=request.getParameter("username");
 		String passwdString=request.getParameter("passwd");
 		String loginString=passwdString+nameString;
@@ -147,15 +144,15 @@ public class CustomerServlet extends HttpServlet {
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-			log("ÕÒ²»µ½index.jsp",e);
+			log("ï¿½Ò²ï¿½ï¿½ï¿½index.jsp",e);
 		}
 		
 
 //		String usernameString=request.getParameter("username");
-//		//Èô¿ÉÒÔ»ñÈ¡µ½ÇëÇó²ÎÊýusername,Ôò´ò³ö»¶Ó­ÐÅÏ¢¡£
+//		//ï¿½ï¿½ï¿½ï¿½ï¿½Ô»ï¿½È¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½username,ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ó­ï¿½ï¿½Ï¢ï¿½ï¿½
 //		if (usernameString != null && usernameString.trim().equals("yechao")){
 //		
-//			//°ÑµÇÂ½ÐÅÏ¢´æ´¢ÔÚcookiesÖÐ£¬²¢ÉèÖÃcookieÊ±¼ä
+//			//ï¿½Ñµï¿½Â½ï¿½ï¿½Ï¢ï¿½æ´¢ï¿½ï¿½cookiesï¿½Ð£ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½cookieÊ±ï¿½ï¿½
 //			Cookie cookie=new Cookie("username",usernameString);
 //			cookie.setMaxAge(3000);
 //			//cookie.setPath("/");
@@ -170,7 +167,7 @@ public class CustomerServlet extends HttpServlet {
 //				e.printStackTrace();
 //			}
 //		}else {
-//			//´ÓcookiesÖÐ»ñÈ¡ÓÃ»§ÐÅÏ¢£¬Èô´æÔÚ£¬ÔòÏÔÊ¾»¶Ó­ÐÅÏ¢
+//			//ï¿½ï¿½cookiesï¿½Ð»ï¿½È¡ï¿½Ã»ï¿½ï¿½ï¿½Ï¢ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ú£ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾ï¿½ï¿½Ó­ï¿½ï¿½Ï¢
 //			Cookie [] cookies=request.getCookies();
 //			if(cookies !=null &&cookies.length>0){
 //				for(Cookie cookie:cookies){
@@ -215,7 +212,7 @@ public class CustomerServlet extends HttpServlet {
 				String cookienameString=cookie.getName();
 				if("username".equals(cookienameString)){
 					String cookievalueString=cookie.getValue();
-					//log("cookieÓÐÎÊÌâ",cookievalueString);
+					//log("cookieï¿½ï¿½ï¿½ï¿½ï¿½ï¿½",cookievalueString);
 					log("cookievalueString");
 					System.out.println(cookievalueString);
 					//request.setAttribute("username", cookievalueString);
@@ -232,11 +229,11 @@ public class CustomerServlet extends HttpServlet {
 		String address=request.getParameter("address");
 		String phone=request.getParameter("phone");
 		Critalfactor cc=new Critalfactor(name, address, phone);
-		//1.Ê¹ÓÃcustomerDaoµÄgetAll£¨£©·½·¨»ñÈ¡CustomerµÄ¼¯ºÏ
+		//1.Ê¹ï¿½ï¿½customerDaoï¿½ï¿½getAllï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¡Customerï¿½Ä¼ï¿½ï¿½ï¿½
 		List<Customer> customers=customerDao.getSearch(cc);
-		//2.°ÉCustomerµÄ¼¯ºÏ·ÅÈërequestÖÐ
+		//2.ï¿½ï¿½Customerï¿½Ä¼ï¿½ï¿½Ï·ï¿½ï¿½ï¿½requestï¿½ï¿½
 		request.setAttribute("Customers", customers);
-		//3.×ª·¢Ò³Ãæµ½indexs.jsp
+		//3.×ªï¿½ï¿½Ò³ï¿½æµ½indexs.jsp
 		try {
 			request.getRequestDispatcher("/index.jsp").forward(request, response);
 		} catch (ServletException e) {
@@ -370,7 +367,7 @@ public class CustomerServlet extends HttpServlet {
 				request.setAttribute("id", idsString);
 				request.setAttribute("oldName", oldNameString);
 				request.getRequestDispatcher("updateNew.jsp").forward(request, response);
-				//´Ë´¦¿ÉÒÔÐÂ½¨Ò»¸öÒ³Ãæ£¬×÷ÎªÐÂµÄ²ÎÊý´ø³ö
+				//ï¿½Ë´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Â½ï¿½Ò»ï¿½ï¿½Ò³ï¿½æ£¬ï¿½ï¿½Îªï¿½ÂµÄ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			}
 			else{
 			customerDao.updateById(id, cc);
@@ -390,7 +387,7 @@ public class CustomerServlet extends HttpServlet {
 	private void addCustomer(HttpServletRequest request, HttpServletResponse response) {
 		// TODO Auto-generated method stub
 		System.out.println("add");
-		//»ñÈ¡ÇëÇóµÄ²ÎÊý
+		//ï¿½ï¿½È¡ï¿½ï¿½ï¿½ï¿½Ä²ï¿½ï¿½ï¿½
 		Cookie [] cookies=request.getCookies();
 		if(cookies !=null &&cookies.length>0){
 			for(Cookie cookie:cookies){
@@ -417,7 +414,7 @@ public class CustomerServlet extends HttpServlet {
 		//System.out.println(nameString);
 		String addressString=request.getParameter("address");
 		String phoneString=request.getParameter("phone");
-		//¹¹½¨Ò»¸öCustomerÀà£¬°Ñ²ÎÊý´«½øÈ¥
+		//ï¿½ï¿½ï¿½ï¿½Ò»ï¿½ï¿½Customerï¿½à£¬ï¿½Ñ²ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½È¥
 		if (customerDao.getCountByName(nameString)>0) {
 			String messageString="The name is used.";
 			request.setAttribute("Message", messageString);
